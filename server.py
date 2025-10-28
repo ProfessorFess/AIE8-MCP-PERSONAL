@@ -25,9 +25,26 @@ def roll_dice(notation: str, num_rolls: int = 1) -> str:
 Add your own tool here, and then use it through Cursor!
 """
 @mcp.tool()
-def YOUR_TOOL_NAME(query: str) -> str:
-    """YOUR_TOOL_DESCRIPTION"""
-    return "YOUR_TOOL_RESPONSE"
+def generate_password(length: int = 12, include_symbols: bool = True) -> str:
+    """Generate a random password with specified length and character options"""
+    import string
+    import secrets
+    
+    # Define character sets
+    lowercase = string.ascii_lowercase
+    uppercase = string.ascii_uppercase
+    digits = string.digits
+    symbols = "!@#$%^&*()_+-=[]{}|;:,.<>?"
+    
+    # Build character pool based on options
+    chars = lowercase + uppercase + digits
+    if include_symbols:
+        chars += symbols
+    
+    # Generate password
+    password = ''.join(secrets.choice(chars) for _ in range(length))
+    
+    return f"Generated password: {password}"
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
